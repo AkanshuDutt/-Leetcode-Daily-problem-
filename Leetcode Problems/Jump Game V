@@ -31,7 +31,7 @@ var minJumps = function(arr)
             if(currIdx === n - 1)
                 return steps;
 
-            //================================================================
+          
             //EXPLORE ALL POSSIBLE OPTIONS
 
             if(currIdx + 1 < n && !visited[currIdx + 1]) //OPTION-1 (Move Forward)
