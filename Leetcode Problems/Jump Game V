@@ -55,7 +55,7 @@ var minJumps = function(arr)
                 }
             }
 
-            //===================================================================
+       
             mp.set(arr[currIdx], []); //EXPLAINED BELOW :)
         }
 
