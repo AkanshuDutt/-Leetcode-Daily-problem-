@@ -1,1 +1,43 @@
 
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number}
+ */
+var longestCommonPrefix = function(arr1, arr2) {
+    
+    const prefixes = new Set();
+
+    for (let num of arr1) {
+
+        let x = num;
+
+        while (x > 0) {
+
+            prefixes.add(x);
+
+            x = Math.floor(x / 10);
+        }
+    }
+
+    let ans = 0;
+
+    for (let num of arr2) {
+
+        let x = num;
+
+        while (x > 0) {
+
+            if (prefixes.has(x)) {
+
+                ans = Math.max(ans, x.toString().length);
+
+                break;
+            }
+
+            x = Math.floor(x / 10);
+        }
+    }
+
+    return ans;
+};
