@@ -6,7 +6,6 @@ var maxJumps = function(arr, d) {
     function dfs(i) {
         if (dp[i] !== -1)
             return dp[i];
-
         let best = 1;
 
         for (let nxt = i + 1; nxt < Math.min(n, i + d + 1); nxt++) {
