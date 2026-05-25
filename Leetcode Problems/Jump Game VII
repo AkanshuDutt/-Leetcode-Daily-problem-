@@ -1,1 +1,23 @@
 
+const canReach = (s, min, max, n = s.length) => {
+    if (s.at(-1) & 1) return false;
+
+    const dp = Array(n).fill(false);
+    dp[0] = true;
+    let reach = 0;
+    let maxR = max;
+
+    for (let i = min; i < n; i++) {
+        if (i > maxR) return false;
+
+        reach += dp[i - min];
+        reach -= (i > max) && dp[i - max - 1];
+
+        if (reach && !(s[i] & 1)) {
+            dp[i] = true;
+            maxR = i + max;
+        }
+    }
+
+    return reach;
+};
