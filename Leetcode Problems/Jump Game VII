@@ -7,7 +7,6 @@ const canReach = (s, min, max, n = s.length) => {
     let maxR = max;
     for (let i = min; i < n; i++) {
         if (i > maxR) return false;
-
         reach += dp[i - min];
         reach -= (i > max) && dp[i - max - 1];
 
