@@ -7,7 +7,7 @@ var numberOfSpecialChars = function(word) {
         if (c >= 'a' && c <= 'z') {
             low[c.charCodeAt(0) - 'a'.charCodeAt(0)] = true;
         }
-         character
+         
         else {
             up[c.charCodeAt(0) - 'A'.charCodeAt(0)] = true;
         }
