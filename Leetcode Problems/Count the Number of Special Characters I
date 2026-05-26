@@ -1,1 +1,26 @@
+var numberOfSpecialChars = function(word) {
+    let low = new Array(26).fill(false);
+    let up = new Array(26).fill(false);
 
+    for (let c of word) {
+        // Lowercase character
+        if (c >= 'a' && c <= 'z') {
+            low[c.charCodeAt(0) - 'a'.charCodeAt(0)] = true;
+        }
+        // Uppercase character
+        else {
+            up[c.charCodeAt(0) - 'A'.charCodeAt(0)] = true;
+        }
+    }
+
+    let ans = 0;
+
+    // Count characters present in both
+    for (let i = 0; i < 26; i++) {
+        if (low[i] && up[i]) {
+            ans++;
+        }
+    }
+
+    return ans;
+};
