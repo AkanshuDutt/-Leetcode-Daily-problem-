@@ -1,7 +1,5 @@
-
 const numberOfSpecialChars = word => {
     const A = Array.from({ length: 27 }, () => [false, false]);
-
     for (let i = 0; i < word.length; i++) {
         const ch = word.charCodeAt(i);
         const idx = ch & 31, C = (ch >> 5) & 1;
