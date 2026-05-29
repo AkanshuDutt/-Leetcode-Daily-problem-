@@ -1,7 +1,5 @@
-
 var minElement = function(nums) {
     let minVal = Infinity;
-
     for (let num of nums) {
         let currentSum = 0;
 
