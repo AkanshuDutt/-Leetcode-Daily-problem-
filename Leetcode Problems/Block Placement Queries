@@ -3,13 +3,11 @@ class Fenwick {
         this.n = n;
         this.bit = new Array(n + 1).fill(0);
     }
-
     add(idx, val) {
         for (; idx <= this.n; idx += idx & -idx) {
             this.bit[idx] += val;
         }
     }
-
     sum(idx) {
         let res = 0;
         for (; idx > 0; idx -= idx & -idx) {
