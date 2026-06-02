@@ -5,7 +5,6 @@ const earliestFinishTime = (startL, durL, startW, durW) => {
 
     for (let i = 0; i < n; i++)
         minL = Math.min(minL, startL[i] + durL[i]);
-
     for (let i = 0; i < m; i++) {
         minW = Math.min(minW, startW[i] + durW[i]);
         res = Math.min(res, Math.max(minL, startW[i]) + durW[i]);
