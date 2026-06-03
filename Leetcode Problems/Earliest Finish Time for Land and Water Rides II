@@ -1,20 +1,47 @@
+var earliestFinishTime = function(
+    landStartTime,
+    landDuration,
+    waterStartTime,
+    waterDuration
+) {
 
-class Solution {
-    earliestFinishTime(lst, ldu, wst, wdu) {
-        let ans = Infinity, mln = Infinity, mnw = Infinity;
+    function getAns(
+        firstStart,
+        firstDuration,
+        secondStart,
+        secondDuration
+    ) {
 
-        for (let i = 0; i < lst.length; i++)
-            mln = Math.min(mln, lst[i] + ldu[i]);
+        // Earliest finish time of first category
+        let minFinish = Infinity;
 
-        for (let i = 0; i < wst.length; i++)
-            ans = Math.min(ans, Math.max(mln, wst[i]) + wdu[i]);
+        for(let i = 0; i < firstStart.length; i++) {
+            minFinish = Math.min(
+                minFinish,
+                firstStart[i] + firstDuration[i]
+            );
+        }
 
-        for (let i = 0; i < wst.length; i++)
-            mnw = Math.min(mnw, wst[i] + wdu[i]);
+        let ans = Infinity;
 
-        for (let i = 0; i < lst.length; i++)
-            ans = Math.min(ans, Math.max(mnw, lst[i]) + ldu[i]);
+        // Try every ride of second category
+        for(let i = 0; i < secondStart.length; i++) {
+
+            let finishTime =
+                Math.max(secondStart[i], minFinish)
+                + secondDuration[i];
+
+            ans = Math.min(ans, finishTime);
+        }
 
         return ans;
     }
-}
+
+    return Math.min(
+        getAns(
+            landStartTime, landDuration,
+            waterStartTime,waterDuration
+        ),
+        getAns(waterStartTime, waterDuration, landStartTime, landDuration )
+    );
+};
