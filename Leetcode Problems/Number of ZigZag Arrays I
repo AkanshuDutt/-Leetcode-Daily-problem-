@@ -1,6 +1,4 @@
-
 const mod = 1e9 + 7;
-
 const zigZagArrays = (n, l, r) => {
     const m = r - l + 1;
     const dp = Array(m).fill(1);
