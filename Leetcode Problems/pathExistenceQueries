@@ -12,7 +12,6 @@ var pathExistenceQueries = function(n, nums, maxDiff, queries) {
         while (j + 1 < n && val[j + 1] - val[i] <= maxDiff) j++;
         reach[i] = j;
     }
-
     const comp = new Int32Array(n);
     for (let i = 1; i < n; i++)
         comp[i] = comp[i - 1] + (val[i] - val[i - 1] > maxDiff ? 1 : 0);
