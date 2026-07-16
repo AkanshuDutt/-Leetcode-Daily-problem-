@@ -1,4 +1,3 @@
-
 const gcd = (a, b) => !b ? a : gcd(b, a % b);
 const gcdSum = A => {
     let max = 0;
