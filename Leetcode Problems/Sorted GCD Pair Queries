@@ -1,4 +1,3 @@
-
 const gcdValues = (A, queries) => {
     const max = _.max(A);
     const freq = new Int32Array(max + 1);
