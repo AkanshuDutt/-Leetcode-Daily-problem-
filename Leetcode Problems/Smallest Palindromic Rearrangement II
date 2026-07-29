@@ -1,19 +1,11 @@
-
-/**
- * @param {string} s
- * @param {number} k
- * @return {string}
- */
 var smallestPalindrome = function(s, k) {
     const freq = new Array(26).fill(0);
     for (let i = 0; i < s.length; i++) {
         freq[s.charCodeAt(i) - 97]++;
-    }
-    
+    } 
     const half = new Array(26).fill(0);
     let mid = "";
     let m = 0;
-    
     for (let i = 0; i < 26; i++) {
         if (freq[i] % 2 !== 0) {
             mid += String.fromCharCode(i + 97);
@@ -21,7 +13,6 @@ var smallestPalindrome = function(s, k) {
         half[i] = Math.floor(freq[i] / 2);
         m += half[i];
     }
-    
     const getWays = (f, targetK) => {
         let ways = 1;
         let currLen = 0;
@@ -48,11 +39,9 @@ var smallestPalindrome = function(s, k) {
         }
         return ways;
     };
-    
     if (getWays(half, k) < k) {
         return "";
-    }
-    
+    }  
     let firstHalf = "";
     for (let i = 0; i < m; i++) {
         for (let c = 0; c < 26; c++) {
@@ -70,6 +59,5 @@ var smallestPalindrome = function(s, k) {
             }
         }
     }
-    
     return firstHalf + mid + firstHalf.split("").reverse().join("");
 };
