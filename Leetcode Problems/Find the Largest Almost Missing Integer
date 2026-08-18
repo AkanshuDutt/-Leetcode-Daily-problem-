@@ -1,1 +1,47 @@
 
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var largestInteger = function(nums, k) {
+    const n = nums.length;
+
+    const freq = new Array(51).fill(0);
+
+    for (const x of nums) {
+        freq[x]++;
+    }
+
+    if (k === 1) {
+        for (let x = 50; x >= 0; x--) {
+            if (freq[x] === 1) {
+                return x;
+            }
+        }
+
+        return -1;
+    }
+
+    if (k === n) {
+        let answer = 0;
+
+        for (const x of nums) {
+            answer = Math.max(answer, x);
+        }
+
+        return answer;
+    }
+
+    let answer = -1;
+
+    if (freq[nums[0]] === 1) {
+        answer = Math.max(answer, nums[0]);
+    }
+
+    if (freq[nums[n - 1]] === 1) {
+        answer = Math.max(answer, nums[n - 1]);
+    }
+
+    return answer;
+};
