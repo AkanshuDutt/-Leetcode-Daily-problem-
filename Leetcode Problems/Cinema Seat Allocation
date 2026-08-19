@@ -1,1 +1,30 @@
 
+var maxNumberOfFamilies = function(n, reservedSeats) {
+    let reserved = new Map(),
+        g1 = (1<<2) | (1<<3) | (1<<4) | (1<<5),
+        g2 = (1<<6) | (1<<7) | (1<<8) | (1<<9),
+        g3 = (1<<4) | (1<<5) | (1<<6) | (1<<7),
+        m = reservedSeats.length,
+        ans, i
+    for (i = 0; i < m; i++) {
+        if (reserved.has(reservedSeats[i][0]))
+            reserved.set(reservedSeats[i][0], reserved.get(reservedSeats[i][0]) | (1 << reservedSeats[i][1]))
+        else
+            reserved.set(reservedSeats[i][0], (1 << reservedSeats[i][1]))
+    }
+    ans = Math.max(0, n - reserved.size) * 2
+    for (let r of reserved.keys()) {
+        seats = reserved.get(r)
+        if ((seats & g1) == 0) {
+            ans ++
+            seats += 32
+        }
+        if ((seats & g2) == 0) {
+            ans ++
+            seats += 64
+        }
+        if ((seats & g3) == 0)
+            ans ++
+    }
+    return ans
+};
