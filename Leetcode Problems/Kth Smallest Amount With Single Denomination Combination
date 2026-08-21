@@ -1,1 +1,41 @@
 
+const gcd = (a, b) => b ? gcd(b, a % b) : a;
+
+const findKthSmallest = (coins, k) => {
+    const A = coins.sort((a, b) => a - b).filter((c, i, a) => a.slice(0, i).every(x => c % x));
+    const dp = [];
+    const n = A.length;
+
+    for (let i = 1; i <= n; i++) {
+        let set = (1 << i) - 1;
+        let limit = 1 << n;
+        const sgn = ((i & 1) << 1) - 1;
+
+        while (set < limit) {
+            let x = 1;
+
+            for (let j = 0; j < n; j++) 
+                if ((set >> j) & 1)
+                    x = x * A[j] / gcd(x, A[j]);
+
+            dp.push(x * sgn);
+
+            let c = set & -set;
+            let r = set + c;
+            set = (((r ^ set) >> 2) / c) | r;
+        }
+    }
+
+    let l = k;
+    let r = A[0] * k;
+
+    while (l < r) {
+        const mid = Math.trunc((l + r) / 2);
+        const sum = _.reduce(dp, (a, c) => a + Math.trunc(mid / c), 0);
+
+        if (sum >= k) r = mid;
+        else l = mid + 1;
+    }
+
+    return l;
+};
