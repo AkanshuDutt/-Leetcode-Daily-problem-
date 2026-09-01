@@ -1,9 +1,3 @@
-
-/**
- * @param {string[]} classroom
- * @param {number} energy
- * @return {number}
- */
 var minMoves = function(classroom, energy) {
     const m = classroom.length;
     const n = classroom[0].length;
