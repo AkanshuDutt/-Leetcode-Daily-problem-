@@ -1,4 +1,3 @@
-
 var uniformArray = function(nums1) {
     let minOdd = Infinity;
     let minEven = Infinity;
@@ -10,10 +9,8 @@ var uniformArray = function(nums1) {
             minOdd = Math.min(minOdd, x);
         }
     }
-
     if (minOdd === Infinity) {
         return true;
     }
-
     return minOdd < minEven;
 };
