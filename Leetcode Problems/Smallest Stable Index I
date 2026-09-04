@@ -1,4 +1,3 @@
-
 var firstStableIndex = function(nums, k) {
      const suf = [];
     nums.reduceRight((a, c, i) => suf[i] = Math.min(a, c), Infinity);
