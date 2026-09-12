@@ -1,7 +1,6 @@
 var maximumWeight = function(intervals) {
     const n = intervals.length;
     const K = 4;
-
     const a = intervals.map((x, i) => [x[0], x[1], x[2], i]);
 
     a.sort((x, y) => x[1] - y[1]);
