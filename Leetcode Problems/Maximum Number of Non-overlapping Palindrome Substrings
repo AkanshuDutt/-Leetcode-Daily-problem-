@@ -1,8 +1,6 @@
-
 const maxPalindromes = (s, k) => {
     let res = 0, n = s.length;
     if (k === 1) return n;
-
     const check = (l, r) => {
         for (; l < r; l++, r--)
             if (s[l] !== s[r]) return false;
