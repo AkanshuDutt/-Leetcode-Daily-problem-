@@ -1,1 +1,20 @@
 
+var numberOfSets = function (n, k) {
+    const MOD = 1000000007n;
+    const pow = (a, e) => {
+        let result = 1n;
+        while (e > 0n) {
+            if (e & 1n) result = (result * a) % MOD;
+            a = (a * a) % MOD;
+            e >>= 1n;
+        }
+        return result;
+    };
+    let numerator = 1n,
+        denominator = 1n;
+    for (let i = 1; i <= 2 * k; i++) {
+        numerator = (numerator * BigInt(n + k - i)) % MOD;
+        denominator = (denominator * BigInt(i)) % MOD;
+    }
+    return Number((numerator * pow(denominator, MOD - 2n)) % MOD);
+};
