@@ -1,8 +1,3 @@
-
-/**
- * @param {string} s
- * @return {string[]}
- */
 var maxNumOfSubstrings = function(s) {
     const count = new Array(26).fill(0);
     const first = new Array(26).fill(-1);
