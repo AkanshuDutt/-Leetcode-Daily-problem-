@@ -1,1 +1,22 @@
 
+/**
+ * @param {number} nums
+ * @return {number}
+ */
+var smallestIndex = function(nums) {
+    const digitSum = (num) => {
+        let sum = 0;
+        while(num > 0){
+            let rem = num % 10;
+            sum += rem;
+            num = Math.floor(num / 10);
+        }
+        return sum;
+    };
+
+    for(let i = 0; i < nums.length; i++){
+        if(digitSum(nums[i]) === i) return i;
+    }
+
+    return -1;
+};
