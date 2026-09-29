@@ -1,4 +1,3 @@
-
 const hasValidPath = A => {
     const m = A.length, n = A[0].length;
     if (~(m + n) & 1 || A[0][0].charCodeAt() & 1 || ~A.at(-1).at(-1).charCodeAt() & 1)
