@@ -1,4 +1,3 @@
-
 var isValid = function(s) {
     const stack = [];
     for (const ch of s) {
