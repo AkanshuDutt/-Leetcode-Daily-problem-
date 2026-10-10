@@ -2,8 +2,6 @@
 var minSumSquareDiff = function(nums1, nums2, k1, k2) {
     const d = new Array(100001).fill(0);
     let k = k1 + k2, sum = 0, max = 0;
-
-    // Step 1: count the differences
     for (let i = 0; i < nums1.length; i++) {
         const x = Math.abs(nums1[i] - nums2[i]);
         d[x]++;
