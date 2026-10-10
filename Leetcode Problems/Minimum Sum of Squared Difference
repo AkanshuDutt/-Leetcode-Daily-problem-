@@ -9,16 +9,12 @@ var minSumSquareDiff = function(nums1, nums2, k1, k2) {
         max = Math.max(max, x);
     }
     if (sum <= k) return 0;
-
-    // Step 2: shave the biggest differences, level by level
     for (let i = max; i > 0 && k > 0; i--) {
         const move = Math.min(k, d[i]);
         d[i] -= move;
         d[i - 1] += move;
         k -= move;
     }
-
-    // Step 3: add up the squares
     let ans = 0;
     for (let i = 0; i <= max; i++)
         ans += i * i * d[i];
