@@ -8,8 +8,6 @@ var minSumSquareDiff = function(nums1, nums2, k1, k2) {
         sum += x;
         max = Math.max(max, x);
     }
-
-    // Enough budget -> every difference becomes 0
     if (sum <= k) return 0;
 
     // Step 2: shave the biggest differences, level by level
