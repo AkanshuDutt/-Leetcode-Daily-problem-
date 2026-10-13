@@ -1,1 +1,21 @@
 
+var maxAlternatingSum = function(nums) {
+    // Step 1: square every number
+    const a = nums.map(x => x * x);
+
+    // Step 2: sort numerically — smallest on the left, biggest on the right
+    a.sort((p, q) => p - q);
+
+    let ans = 0;
+    const k = Math.floor(nums.length / 2);   // number of minus places
+
+    // Step 3: subtract the k smallest squares
+    for (let i = 0; i < k; i++)
+        ans -= a[i];
+
+    // Step 4: add all the bigger squares
+    for (let i = k; i < nums.length; i++)
+        ans += a[i];
+
+    return ans;
+};
