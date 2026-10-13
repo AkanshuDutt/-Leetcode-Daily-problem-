@@ -2,8 +2,7 @@
 var maxAlternatingSum = function(nums) {
     // Step 1: square every number
     const a = nums.map(x => x * x);
-
-    // Step 2: sort numerically — smallest on the left, biggest on the right
+// Step 2: sort numerically — smallest on the left, biggest on the right
     a.sort((p, q) => p - q);
 
     let ans = 0;
