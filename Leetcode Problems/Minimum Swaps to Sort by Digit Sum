@@ -1,4 +1,3 @@
-
 var minSwaps = function (nums) {
     const n = nums.length;
     const digitSum = new Array(n);
@@ -11,7 +10,6 @@ var minSwaps = function (nums) {
         }
         digitSum[i] = sum;
     }
-
     const indices = Array.from({ length: n }, (_, i) => i);
     indices.sort((a, b) => {
         if (digitSum[a] !== digitSum[b]) {
