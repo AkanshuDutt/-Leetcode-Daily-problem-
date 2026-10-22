@@ -1,4 +1,3 @@
-
 const minOperations = A => {
     const n = A.length;
     let asc = 1, dsc = 1;
