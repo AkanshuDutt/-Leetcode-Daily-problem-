@@ -61,15 +61,15 @@ daily-leetcode-javascript/
 │
 ├── day-01/
 │   ├── problem.js
-│   └── problem.md
+│   
 │
 ├── day-02/
 │   ├── problem.js
-│   └── problem.md
+│ 
 │
 ├── day-03/
 │   ├── problem.js
-│   └── problem.md
+│  
 │
 ├── ...
 │
