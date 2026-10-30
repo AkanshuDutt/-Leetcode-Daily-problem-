@@ -1,10 +1,4 @@
-/**
- * @param {number} n
- * @param {number[][]} edges
- * @param {string} labels
- * @param {number} k
- * @return {number}
- */
+
 var shortestPath = function(n, edges, labels, k) {
     const m = edges.length;
     const head = new Int32Array(n).fill(-1);
