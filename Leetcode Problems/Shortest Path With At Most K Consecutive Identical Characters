@@ -1,1 +1,43 @@
+var shortestPath = function(n, edges, labels, k) {
+    const graph = Array.from({length: n}, () => []);
+    for (const [u, v, w] of edges) graph[u].push([v, w]);
 
+    const best = new Array(n).fill(k + 1);  // best[x]: the shortest run x was settled with, k + 1 until then
+    const heap = new MinHeap();  // (distance, run, node): the walk ends with run nodes labeled labels[node]
+    heap.push([0, 1, 0]);
+    while (heap.size) {
+        const [d, run, x] = heap.pop();
+        if (run >= best[x]) continue;  // x was settled before, no farther away and with a run no longer
+        if (x === n - 1) return d;
+        best[x] = run;
+        for (const [y, w] of graph[x]) {
+            const r = labels[y] === labels[x] ? run + 1 : 1;
+            if (r < best[y]) heap.push([d + w, r, y]);
+        }
+    }
+    return -1;
+};
+
+class MinHeap {  // a binary heap of [distance, run, node], the smallest (distance, run) on top
+    a = [];
+    get size() { return this.a.length; }
+    static less(p, q) { return p[0] < q[0] || p[0] === q[0] && p[1] < q[1]; }
+    push(s) {
+        const a = this.a;
+        let i = a.length;
+        for (let p; i > 0 && MinHeap.less(s, a[p = (i - 1) >> 1]); i = p) a[i] = a[p];  // move parents down
+        a[i] = s;
+    }
+    pop() {
+        const a = this.a, top = a[0], s = a.pop();
+        if (!a.length) return top;
+        let i = 0;
+        for (let c; (c = 2 * i + 1) < a.length; i = c) {
+            if (c + 1 < a.length && MinHeap.less(a[c + 1], a[c])) c++;  // the smaller child
+            if (!MinHeap.less(a[c], s)) break;
+            a[i] = a[c];  // move it up
+        }
+        a[i] = s;
+        return top;
+    }
+}
