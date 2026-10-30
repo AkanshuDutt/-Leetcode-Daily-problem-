@@ -1,43 +1,84 @@
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {string} labels
+ * @param {number} k
+ * @return {number}
+ */
 var shortestPath = function(n, edges, labels, k) {
-    const graph = Array.from({length: n}, () => []);
-    for (const [u, v, w] of edges) graph[u].push([v, w]);
+    const m = edges.length;
+    const head = new Int32Array(n).fill(-1);
+    const nxt = new Int32Array(m);
+    for (let i = 0; i < m; i++) {
+        nxt[i] = head[edges[i][0]];
+        head[edges[i][0]] = i;
+    }
+    const lab = new Uint8Array(n);
+    for (let i = 0; i < n; i++) lab[i] = labels.charCodeAt(i);
 
-    const best = new Array(n).fill(k + 1);  // best[x]: the shortest run x was settled with, k + 1 until then
-    const heap = new MinHeap();  // (distance, run, node): the walk ends with run nodes labeled labels[node]
-    heap.push([0, 1, 0]);
-    while (heap.size) {
-        const [d, run, x] = heap.pop();
-        if (run >= best[x]) continue;  // x was settled before, no farther away and with a run no longer
-        if (x === n - 1) return d;
-        best[x] = run;
-        for (const [y, w] of graph[x]) {
-            const r = labels[y] === labels[x] ? run + 1 : 1;
-            if (r < best[y]) heap.push([d + w, r, y]);
+    const dist = new Float64Array(n * k).fill(Infinity);
+    const keys = [];
+    const vals = [];
+    let topKey = 0, topVal = 0;
+
+    const push = (key, val) => {
+        let i = keys.length;
+        keys.push(key);
+        vals.push(val);
+        while (i > 0) {
+            const p = (i - 1) >> 1;
+            if (keys[p] <= key) break;
+            keys[i] = keys[p];
+            vals[i] = vals[p];
+            i = p;
+        }
+        keys[i] = key;
+        vals[i] = val;
+    };
+
+    const pop = () => {
+        topKey = keys[0];
+        topVal = vals[0];
+        const lk = keys.pop();
+        const lv = vals.pop();
+        const size = keys.length;
+        if (size > 0) {
+            let i = 0;
+            while (true) {
+                let c = 2 * i + 1;
+                if (c >= size) break;
+                if (c + 1 < size && keys[c + 1] < keys[c]) c++;
+                if (keys[c] >= lk) break;
+                keys[i] = keys[c];
+                vals[i] = vals[c];
+                i = c;
+            }
+            keys[i] = lk;
+            vals[i] = lv;
+        }
+    };
+
+    dist[0] = 0;
+    push(0, 0);
+    while (keys.length > 0) {
+        pop();
+        const d = topKey;
+        const state = topVal;
+        if (d > dist[state]) continue;
+        const u = Math.floor(state / k);
+        const run = state - u * k + 1;
+        if (u === n - 1) return d;
+        for (let e = head[u]; e !== -1; e = nxt[e]) {
+            const v = edges[e][1];
+            const nr = lab[v] === lab[u] ? run + 1 : 1;
+            if (nr > k) continue;
+            const ns = v * k + nr - 1;
+            const nd = d + edges[e][2];
+            if (nd < dist[ns]) {
+                dist[ns] = nd;
+                push(nd, ns);
+            }
         }
     }
     return -1;
 };
-
-class MinHeap {  // a binary heap of [distance, run, node], the smallest (distance, run) on top
-    a = [];
-    get size() { return this.a.length; }
-    static less(p, q) { return p[0] < q[0] || p[0] === q[0] && p[1] < q[1]; }
-    push(s) {
-        const a = this.a;
-        let i = a.length;
-        for (let p; i > 0 && MinHeap.less(s, a[p = (i - 1) >> 1]); i = p) a[i] = a[p];  // move parents down
-        a[i] = s;
-    }
-    pop() {
-        const a = this.a, top = a[0], s = a.pop();
-        if (!a.length) return top;
-        let i = 0;
-        for (let c; (c = 2 * i + 1) < a.length; i = c) {
-            if (c + 1 < a.length && MinHeap.less(a[c + 1], a[c])) c++;  // the smaller child
-            if (!MinHeap.less(a[c], s)) break;
-            a[i] = a[c];  // move it up
-        }
-        a[i] = s;
-        return top;
-    }
-}
